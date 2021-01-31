@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="toa-Q8-VSF">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lx-xy-hfg">
+                                <rect key="frame" x="107" y="98" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="3lx-xy-hfg" secondAttribute="height" multiplier="2:1" id="tZy-Ad-UWH"/>
+                                </constraints>
+                                <state key="normal" image="spain"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8dT-wq-GGA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gim-2Q-NV3">
+                                <rect key="frame" x="107" y="228" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gim-2Q-NV3" secondAttribute="height" multiplier="2:1" id="B9B-Up-hG1"/>
+                                </constraints>
+                                <state key="normal" image="uk"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jLr-3S-CwW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJZ-uq-9X1">
+                                <rect key="frame" x="107" y="358" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gJZ-uq-9X1" secondAttribute="height" multiplier="2:1" id="JVc-xp-No8"/>
+                                </constraints>
+                                <state key="normal" image="us"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1k6-2y-LgN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3lx-xy-hfg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="1oC-4Y-2ZP"/>
+                            <constraint firstItem="gim-2Q-NV3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3oj-Cy-FhN"/>
+                            <constraint firstItem="gJZ-uq-9X1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4SF-Iw-IOE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gJZ-uq-9X1" secondAttribute="bottom" constant="20" id="DWN-nJ-IcP"/>
+                            <constraint firstItem="gJZ-uq-9X1" firstAttribute="top" secondItem="gim-2Q-NV3" secondAttribute="bottom" constant="30" id="GAs-8A-0Wn"/>
+                            <constraint firstItem="gim-2Q-NV3" firstAttribute="height" secondItem="gJZ-uq-9X1" secondAttribute="height" id="N9U-Gx-UHV"/>
+                            <constraint firstItem="gim-2Q-NV3" firstAttribute="height" secondItem="3lx-xy-hfg" secondAttribute="height" id="OZo-4V-OvC"/>
+                            <constraint firstItem="3lx-xy-hfg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QUG-MA-LJ4"/>
+                            <constraint firstItem="gim-2Q-NV3" firstAttribute="top" secondItem="3lx-xy-hfg" secondAttribute="bottom" constant="30" id="kbY-fE-2wE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="38v-DR-6Ph"/>
+                    <connections>
+                        <outlet property="button1" destination="3lx-xy-hfg" id="CHh-Lr-xXG"/>
+                        <outlet property="button2" destination="gim-2Q-NV3" id="zzw-BW-li5"/>
+                        <outlet property="button3" destination="gJZ-uq-9X1" id="G5h-JV-rib"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="928.98550724637687" y="93.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wiP-oU-pQQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="toa-Q8-VSF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AeO-yL-DoE">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="LYw-hp-1GA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gYI-Yx-2pf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="93.75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="spain" width="200" height="100"/>
+        <image name="uk" width="200" height="100"/>
+        <image name="us" width="200" height="100"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
