@@ -18,29 +18,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSString *path = [[NSBundle mainBundle] resourcePath];
-    NSError *error;
-    NSArray *contents = [[NSArray alloc] init];
-    contents = [fm contentsOfDirectoryAtPath:path error:&error];
 
-    if (error) {
-        NSLog(@"%@", error);
-        return;
-    }
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSString *path = [[NSBundle mainBundle] resourcePath];
+        NSError *error;
+        NSArray *contents = [[NSArray alloc] init];
+        contents = [fm contentsOfDirectoryAtPath:path error:&error];
 
-    self.pictures = [[NSMutableArray alloc] init];
-
-    for (id item in contents) {
-        if ([item hasPrefix:@"nssl"]) {
-            [self.pictures addObject:item];
+        if (error) {
+            NSLog(@"%@", error);
+            return;
         }
-    }
 
-    [self.pictures sortUsingSelector:@selector(compare:)];
+        self.pictures = [[NSMutableArray alloc] init];
 
-    [self.tableView registerClass:UITableViewCell.self
-           forCellReuseIdentifier:@"cell"];
+        for (id item in contents) {
+            if ([item hasPrefix:@"nssl"]) {
+                [self.pictures addObject:item];
+            }
+        }
+
+        [self.pictures sortUsingSelector:@selector(compare:)];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    });
+
+    [self.tableView registerClass:UITableViewCell.self forCellReuseIdentifier:@"cell"];
 
     self.title = @"Storm Viewer";
     [[self.navigationController navigationBar] setPrefersLargeTitles:YES];

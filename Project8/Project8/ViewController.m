@@ -53,7 +53,7 @@
     [self.cluesLabel setContentHuggingPriority:1 forAxis:UILayoutConstraintAxisVertical];
     [self.view addSubview:self.cluesLabel];
 
-     self.answersLabel = [[UILabel alloc] init];
+    self.answersLabel = [[UILabel alloc] init];
     [self.answersLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.answersLabel setFont:[UIFont systemFontOfSize:24]];
     [self.answersLabel setText:@"ANSWERS"];
@@ -151,55 +151,58 @@
 
 - (void)loadLevel
 {
-    NSString *clueString = @"";
-    NSString *solutionString = @"";
-    NSMutableArray<NSString *> *letterBits = [[NSMutableArray alloc] init];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSString *clueString = @"";
+        NSString *solutionString = @"";
+        NSMutableArray<NSString *> *letterBits = [[NSMutableArray alloc] init];
+        NSURL *levelFileURL = [[NSBundle mainBundle] URLForResource:@"level1" withExtension:@"txt"];
+        if (levelFileURL) {
+            NSError *error;
+            NSString *levelContents = [NSString stringWithContentsOfURL:levelFileURL encoding:NSUTF8StringEncoding error:&error];
 
-    NSURL *levelFileURL = [[NSBundle mainBundle] URLForResource:@"level1" withExtension:@"txt"];
-    if (levelFileURL) {
-        NSError *error;
-        NSString *levelContents = [NSString stringWithContentsOfURL:levelFileURL encoding:NSUTF8StringEncoding error:&error];
-
-        if (error) {
-            NSLog(@"%@", error);
-            return;
-        }
-
-        NSMutableArray<NSString *> *lines = [[levelContents componentsSeparatedByString:@"\n"] mutableCopy];
-        [lines shuffle];
-
-        int length = (int)[lines count];
-        for (int index = 0; index < length; index++) {
-            NSString *line = lines[index];
-            NSArray *parts = [line componentsSeparatedByString:@": "];
-            NSString *answer = parts[0];
-            NSString *clue = parts[1];
-
-            clueString = [clueString stringByAppendingFormat:@"%d. %@\n", index + 1, clue];
-
-            NSString *solutionWord = [answer stringByReplacingOccurrencesOfString:@"|" withString:@""];
-            solutionString = [solutionString stringByAppendingFormat:@"%d letters\n", (int)[solutionWord length]];
-            [self.solutions addObject:solutionWord];
-
-            NSArray<NSString *> *bits = [answer componentsSeparatedByString:@"|"];
-            [letterBits addObjectsFromArray:bits];
-        }
-
-        NSCharacterSet *whitespaceAndNewlineCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-        self.cluesLabel.text = [clueString stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
-        self.answersLabel.text = [solutionString stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
-
-        //shuffle letterbits
-        [letterBits shuffle];
-        NSUInteger letterBitsCount = [letterBits count];
-        NSUInteger letterButtonsCount = [self.letterButtons count];
-
-        if (letterBitsCount == letterButtonsCount) {
-            for (int i = 0; i < letterButtonsCount; i++) {
-                [self.letterButtons[i] setTitle:letterBits[i] forState:UIControlStateNormal];
+            if (error) {
+                NSLog(@"%@", error);
+                return;
             }
+
+            NSMutableArray<NSString *> *lines = [[levelContents componentsSeparatedByString:@"\n"] mutableCopy];
+            [lines shuffle];
+
+            int length = (int)[lines count];
+            for (int index = 0; index < length; index++) {
+                NSString *line = lines[index];
+                NSArray *parts = [line componentsSeparatedByString:@": "];
+                NSString *answer = parts[0];
+                NSString *clue = parts[1];
+
+                clueString = [clueString stringByAppendingFormat:@"%d. %@\n", index + 1, clue];
+
+                NSString *solutionWord = [answer stringByReplacingOccurrencesOfString:@"|" withString:@""];
+                solutionString = [solutionString stringByAppendingFormat:@"%d letters\n", (int)[solutionWord length]];
+                [self.solutions addObject:solutionWord];
+
+                NSArray<NSString *> *bits = [answer componentsSeparatedByString:@"|"];
+                [letterBits addObjectsFromArray:bits];
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSCharacterSet *whitespaceAndNewlineCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+                self.cluesLabel.text = [clueString stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+                self.answersLabel.text = [solutionString stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+
+                //shuffle letterbits
+                [letterBits shuffle];
+                NSUInteger letterBitsCount = [letterBits count];
+                NSUInteger letterButtonsCount = [self.letterButtons count];
+
+                if (letterBitsCount == letterButtonsCount) {
+                    for (int i = 0; i < letterButtonsCount; i++) {
+                        [self.letterButtons[i] setTitle:letterBits[i] forState:UIControlStateNormal];
+                    }
+                }
+            });
         }
-    }
+    });
 }
 
 - (void)setScore:(int)score
